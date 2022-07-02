@@ -1,0 +1,2 @@
+export { TranslatorScreen } from './TranslatorScreen'
+ 

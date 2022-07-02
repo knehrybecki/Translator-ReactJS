@@ -1,12 +1,12 @@
-import { AppTheme } from '../types'
+import { AppTheme } from 'lib/types'
 
 export const theme: AppTheme = {
     colors: {
-        primary: '#FFFFFF',
-        background: '#84DCC6',
-        foreground: '#FFA69E',
+        primary: '#0353a4',
+        background: '#0d1321',
+        foreground: '#748cab',
         error: 'FF686B',
-        typography: '#FFFFFF',
-        input: '#FFA69E'
-    }
+        typography: '#f0ebd8',
+        input: '#3e5c76',
+    },
 }
