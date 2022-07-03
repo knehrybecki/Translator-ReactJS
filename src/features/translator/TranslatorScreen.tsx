@@ -1,17 +1,35 @@
 import { Confidence, Loader, SelectLanguage, TextCounter, TextInput } from 'lib/components'
 import { ExchangeLanguage } from 'lib/components/ExchangeLanguage'
-import { useTranslations } from 'lib/hooks'
-import React from 'react'
+import { Language, LanguageCode } from 'lib/models'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import { SelectedLanguages } from './types'
 
-export const TranslatorScreen: React.FunctionComponent = () => {
-    const T = useTranslations()
+type TranslaotrScreenProps = {
+    languages: Array<Language>
+}
+
+export const TranslatorScreen: React.FunctionComponent<TranslaotrScreenProps> = ({ languages }) => {
+    const [selectedLanguages, setSelectedLanguages] = useState<SelectedLanguages>({
+        source: LanguageCode.Auto,
+        target: LanguageCode.English,
+    })
 
     return (
         <Container>
             <TranslatorContainer>
                 <InputContainer>
-                    <SelectLanguage />
+                    <SelectLanguage
+                        languages={languages}
+                        exclude={[selectedLanguages.target]}
+                        SelectedLangugage={selectedLanguages.source}
+                        onChange={newCode =>
+                            setSelectedLanguages(prevState => ({
+                                ...prevState,
+                                source: newCode,
+                            }))
+                        }
+                    />
                     <TextInput />
                     <LoaderContainer>
                         <Loader />
@@ -21,9 +39,27 @@ export const TranslatorScreen: React.FunctionComponent = () => {
                         <TextCounter />
                     </InputFooter>
                 </InputContainer>
-                <ExchangeLanguage />
+                <ExchangeLanguage
+                    hidden={selectedLanguages.source === LanguageCode.Auto}
+                    onClick={() =>
+                        setSelectedLanguages(prevState => ({
+                            source: prevState.target,
+                            target: prevState.source,
+                        }))
+                    }
+                />
                 <InputContainer>
-                    <SelectLanguage />
+                    <SelectLanguage
+                        languages={languages}
+                        exclude={[selectedLanguages.source, LanguageCode.Auto]}
+                        onChange={newCode =>
+                            setSelectedLanguages(prevState => ({
+                                ...prevState,
+                                target: newCode,
+                            }))
+                        }
+                        SelectedLangugage={selectedLanguages.target}
+                    />
                     <TextInput />
                     <LoaderContainer>
                         <Loader />
@@ -45,7 +81,6 @@ const TranslatorContainer = styled.div`
     justify-content: space-around;
     margin-top: 100px;
 `
-
 const InputContainer = styled.div`
     display: flex;
     flex-direction: column;
