@@ -9,7 +9,7 @@ export const Footer = () => {
     return (
         <FooterContainer>
             <CompanyName>
-                Copy project from &copy; {year} {T.companyName}
+                Copy project from &copy; {year} {T.common.companyName}
             </CompanyName>
             <LinkContainer>
                 <Link href={APP_CONFIG.ICON_URL} target='_blank'>

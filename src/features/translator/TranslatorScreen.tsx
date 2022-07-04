@@ -1,5 +1,7 @@
 import { Confidence, Loader, SelectLanguage, TextCounter, TextInput } from 'lib/components'
 import { ExchangeLanguage } from 'lib/components/ExchangeLanguage'
+import { APP_CONFIG } from 'lib/config'
+import { useTranslations } from 'lib/hooks'
 import { Language, LanguageCode } from 'lib/models'
 import React, { useState } from 'react'
 import styled from 'styled-components'
@@ -10,6 +12,8 @@ type TranslaotrScreenProps = {
 }
 
 export const TranslatorScreen: React.FunctionComponent<TranslaotrScreenProps> = ({ languages }) => {
+    const T = useTranslations()
+    const [query, SetQuery] = useState<string>('')
     const [selectedLanguages, setSelectedLanguages] = useState<SelectedLanguages>({
         source: LanguageCode.Auto,
         target: LanguageCode.English,
@@ -30,13 +34,25 @@ export const TranslatorScreen: React.FunctionComponent<TranslaotrScreenProps> = 
                             }))
                         }
                     />
-                    <TextInput />
+                    <TextInput 
+                    autoFocus
+                    value={query}
+                    onChangeText={newQuery => {
+                        if (newQuery.length <= APP_CONFIG.TEXT_INPUT_LIMIT) {
+                            SetQuery(newQuery)
+                        }
+                    }}
+                    placeholder={T.screens.translator.sourceInputPlaceHolder}
+                     />
                     <LoaderContainer>
                         <Loader />
                     </LoaderContainer>
                     <InputFooter>
                         <Confidence />
-                        <TextCounter />
+                        <TextCounter 
+                            counter={query.length}
+                            limit={APP_CONFIG.TEXT_INPUT_LIMIT}
+                        />
                     </InputFooter>
                 </InputContainer>
                 <ExchangeLanguage
@@ -60,7 +76,7 @@ export const TranslatorScreen: React.FunctionComponent<TranslaotrScreenProps> = 
                         }
                         SelectedLangugage={selectedLanguages.target}
                     />
-                    <TextInput />
+                    <TextInput disabled/>
                     <LoaderContainer>
                         <Loader />
                     </LoaderContainer>

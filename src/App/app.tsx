@@ -23,9 +23,9 @@ const getLayout = () => {
     if (isLoading) {
         return (
             <FetchLoaderContainer>
-                {/* <Loader> */}
-                    <LoaderText>{T.screen.translator.loading}</LoaderText>
-                {/* </Loader> */}
+                <Loader>
+                    <LoaderText>{T.components.app.loading}</LoaderText>
+                </Loader>
             </FetchLoaderContainer>
         )
     }
@@ -34,7 +34,7 @@ const getLayout = () => {
         return (
             <CenterContainer>
                 <Message
-                    message={T.screen.translator.error}
+                    message={T.components.app.error}
                     withButton
                     onClick={() => getSupportedLanguages()}
                 />
@@ -45,7 +45,7 @@ const getLayout = () => {
     if (languages.length === 0) {
         return (
             <CenterContainer>
-                <Message message={T.screen.translator.empty} />
+                <Message message={T.components.app.empty} />
             </CenterContainer>
         )
     }
