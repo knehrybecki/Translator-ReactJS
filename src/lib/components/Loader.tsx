@@ -1,8 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 
+type LoaderProps = {
+    children?: React.ReactNode
+}
 
-export const Loader: React.FunctionComponent = ({children}) => (
+export const Loader: React.FunctionComponent = ({children}: LoaderProps)=> (
     <LoaderContainer>
         <ActivityIndicator />
         {children && (

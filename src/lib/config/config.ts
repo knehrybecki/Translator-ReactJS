@@ -4,5 +4,6 @@ export const APP_CONFIG = {
     ICON_URL: 'https://www.pngmart.com/image/272094',
     LIBRE_TRANSLATE_URL: 'https://libretranslate.com/',
     APP_URL: 'https://libretranslate.com/',
+    API_URL: 'https://libretranslate.com/',
     TEXT_INPUT_LIMIT: 5000
 }

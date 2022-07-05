@@ -3,7 +3,6 @@ export type Dictionary = {
         autoTranslate: string
         companyName: string
     }
-
     components: {
         app: {
             loading: string
@@ -21,6 +20,9 @@ export type Dictionary = {
         }
         message: {
             tryAgain: string
+        },
+        confidence: {
+            error: string
         }
     }
     screens: {

@@ -23,9 +23,9 @@ const getLayout = () => {
     if (isLoading) {
         return (
             <FetchLoaderContainer>
-                <Loader>
+                <Loader/>
                     <LoaderText>{T.components.app.loading}</LoaderText>
-                </Loader>
+
             </FetchLoaderContainer>
         )
     }
