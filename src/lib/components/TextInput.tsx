@@ -1,11 +1,17 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
+import { useEffect } from 'react'
+
+type InputProps = {
+    hasError?: boolean
+}
 
 type TextInputProps = {
-    disabled?: boolean
-    autoFocus?: boolean
-    placeholder?: string
-    value?: string
+    value?: string,
+    disabled?: boolean,
+    hasError?: boolean,
+    autoFocus?: boolean,
+    placeholder?: string,
     onChangeText?(text: string): void
 }
 
@@ -14,12 +20,13 @@ export const TextInput: React.FunctionComponent<TextInputProps> = ({
     disabled,
     placeholder,
     value,
-    onChangeText,
+    hasError,
+    onChangeText
 }) => {
     const inputRef = React.createRef<HTMLTextAreaElement>()
 
     useEffect(() => {
-        if (!disabled && autoFocus && inputRef.current) {
+        if(!disabled && autoFocus && inputRef.current) {
             inputRef.current.focus()
         }
     }, [])
@@ -35,17 +42,19 @@ export const TextInput: React.FunctionComponent<TextInputProps> = ({
                     onChangeText(event.target.value)
                 }
             }}
+            hasError={hasError}
         />
     )
 }
 
-const Input = styled.textarea`
+const Input = styled.textarea<InputProps>`
     background-color: ${({ theme }) => theme.colors.input};
     color: ${({ theme }) => theme.colors.typography};
-    border: none;
+    border: ${({ theme, hasError }) => hasError ? `1px solid ${theme.colors.error}` : 'none'};
     border-radius: 8px;
     height: 300px;
-    width: 500px;
+    width: 380px;
     resize: none;
-    padding: 10px;
+    font-size: 18px;
+    padding: 10px 15px;
 `

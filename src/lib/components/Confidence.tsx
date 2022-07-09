@@ -24,8 +24,7 @@ export const Confidence: React.FunctionComponent<ConfidenceProps> = ({
         if (!language) {
             return undefined
         }
-        const [detectedLanguage] =
-            Object
+        const [detectedLanguage] = Object
             .entries(LanguageCode)
             .find(([, languageCode]) => language === languageCode) || []
 

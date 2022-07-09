@@ -6,7 +6,6 @@ import { theme } from 'lib/styles'
 import { useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 
-
 export const App = () => {
     const T = useTranslations()
     const [languages, setLanguages] = useState<Array<Language>>([])
@@ -17,15 +16,17 @@ export const App = () => {
     } = translatorActions.useSupportedLanguages(setLanguages)
 
     useEffect(() => {
-        getSupportedLanguages()
+        getSupportedLanguages(Request)
     }, [])
+    
 const getLayout = () => {
     if (isLoading) {
         return (
             <FetchLoaderContainer>
                 <Loader/>
-                    <LoaderText>{T.components.app.loading}</LoaderText>
-
+                    <LoaderText>
+                        {T.components.app.loading}
+                    </LoaderText>
             </FetchLoaderContainer>
         )
     }
@@ -36,7 +37,7 @@ const getLayout = () => {
                 <Message
                     message={T.components.app.error}
                     withButton
-                    onClick={() => getSupportedLanguages()}
+                    onClick={() => getSupportedLanguages(Request)}
                 />
             </CenterContainer>
         )
