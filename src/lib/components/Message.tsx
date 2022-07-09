@@ -3,8 +3,8 @@ import React from 'react'
 import styled from 'styled-components'
 
 type MessageProps = {
-    message: string,
-    withButton?: boolean,
+    message: string
+    withButton?: boolean
     onClick?(): void
 }
 

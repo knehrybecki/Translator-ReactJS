@@ -5,14 +5,10 @@ type LoaderProps = {
     children?: React.ReactNode
 }
 
-export const Loader: React.FunctionComponent = ({children}: LoaderProps)=> (
+export const Loader: React.FunctionComponent = ({ children }: LoaderProps) => (
     <LoaderContainer>
         <ActivityIndicator />
-        {children && (
-            <ChildrenContainer>
-                {children}
-            </ChildrenContainer>
-        )}
+        {children && <ChildrenContainer>{children}</ChildrenContainer>}
     </LoaderContainer>
 )
 

@@ -38,10 +38,12 @@ export const TranslatorScreen: React.FunctionComponent<TranslatorScreenProps> = 
                         languages={languages}
                         exclude={[selectedLanguages.target]}
                         selectedLanguage={selectedLanguages.source}
-                        onChange={newCode => setSelectedLanguages(prevState => ({
-                            ...prevState,
-                            source: newCode
-                        }))}
+                        onChange={newCode =>
+                            setSelectedLanguages(prevState => ({
+                                ...prevState,
+                                source: newCode,
+                            }))
+                        }
                     />
                     <TextInput
                         autoFocus
@@ -56,28 +58,24 @@ export const TranslatorScreen: React.FunctionComponent<TranslatorScreenProps> = 
                         }}
                         placeholder={T.screens.translator.sourceInputPlaceHolder}
                     />
-                    <LoaderContainer>
-                        {isDetectingLanguage && (
-                            <Loader />
-                        )}
-                    </LoaderContainer>
+                    <LoaderContainer>{isDetectingLanguage && <Loader />}</LoaderContainer>
                     <InputFooter>
                         <Confidence
-                            hasError={hasErrorDetectingLanguage && selectedLanguages.source === LanguageCode.Auto}
+                            hasError={
+                                hasErrorDetectingLanguage &&
+                                selectedLanguages.source === LanguageCode.Auto
+                            }
                             autoDetectedLanguage={autoDetectedLanguage!}
                             onClick={() => {
                                 setSelectedLanguages(prevState => ({
                                     ...prevState,
-                                    source: autoDetectedLanguage?.language as LanguageCode
+                                    source: autoDetectedLanguage?.language as LanguageCode,
                                 }))
                                 setAutoDetectedLanguage(undefined)
                                 debouncedAction()
                             }}
                         />
-                        <TextCounter
-                            counter={query.length}
-                            limit={APP_CONFIG.TEXT_INPUT_LIMIT}
-                        />
+                        <TextCounter counter={query.length} limit={APP_CONFIG.TEXT_INPUT_LIMIT} />
                     </InputFooter>
                 </InputContainer>
                 <ExchangeLanguage
@@ -85,7 +83,7 @@ export const TranslatorScreen: React.FunctionComponent<TranslatorScreenProps> = 
                     onClick={() => {
                         setSelectedLanguages(prevState => ({
                             source: prevState.target,
-                            target: prevState.source
+                            target: prevState.source,
                         }))
                         setQuery('')
                         setTranslatedText('')
@@ -95,22 +93,16 @@ export const TranslatorScreen: React.FunctionComponent<TranslatorScreenProps> = 
                     <SelectLanguage
                         languages={languages}
                         exclude={[selectedLanguages.source, LanguageCode.Auto]}
-                        onChange={newCode => setSelectedLanguages(prevState => ({
-                            ...prevState,
-                            target: newCode
-                        }))}
+                        onChange={newCode =>
+                            setSelectedLanguages(prevState => ({
+                                ...prevState,
+                                target: newCode,
+                            }))
+                        }
                         selectedLanguage={selectedLanguages.target}
                     />
-                    <TextInput
-                        disabled
-                        value={translatedText}
-                        hasError={hasErrorTranslatingText}
-                    />
-                    <LoaderContainer>
-                        {isTranslatingText && (
-                            <Loader />
-                        )}
-                    </LoaderContainer>
+                    <TextInput disabled value={translatedText} hasError={hasErrorTranslatingText} />
+                    <LoaderContainer>{isTranslatingText && <Loader />}</LoaderContainer>
                 </InputContainer>
             </TranslatorContainer>
         </Container>

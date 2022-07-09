@@ -18,52 +18,48 @@ export const App = () => {
     useEffect(() => {
         getSupportedLanguages(Request)
     }, [])
-    
-const getLayout = () => {
-    if (isLoading) {
-        return (
-            <FetchLoaderContainer>
-                <Loader/>
-                    <LoaderText>
-                        {T.components.app.loading}
-                    </LoaderText>
-            </FetchLoaderContainer>
-        )
-    }
 
-    if (hasError) {
-        return (
-            <CenterContainer>
-                <Message
-                    message={T.components.app.error}
-                    withButton
-                    onClick={() => getSupportedLanguages(Request)}
-                />
-            </CenterContainer>
-        )
-    }
+    const getLayout = () => {
+        if (isLoading) {
+            return (
+                <FetchLoaderContainer>
+                    <Loader />
+                    <LoaderText>{T.components.app.loading}</LoaderText>
+                </FetchLoaderContainer>
+            )
+        }
 
-    if (languages.length === 0) {
-        return (
-            <CenterContainer>
-                <Message message={T.components.app.empty} />
-            </CenterContainer>
-        )
+        if (hasError) {
+            return (
+                <CenterContainer>
+                    <Message
+                        message={T.components.app.error}
+                        withButton
+                        onClick={() => getSupportedLanguages(Request)}
+                    />
+                </CenterContainer>
+            )
+        }
+
+        if (languages.length === 0) {
+            return (
+                <CenterContainer>
+                    <Message message={T.components.app.empty} />
+                </CenterContainer>
+            )
+        }
+
+        return <TranslatorScreen languages={languages} />
     }
-    
-    return (
-        <TranslatorScreen languages={languages}/>
-    )
-}
 
     return (
-    <ThemeProvider theme={theme}>
-        <AppContainer>
-            <Header />
+        <ThemeProvider theme={theme}>
+            <AppContainer>
+                <Header />
                 {getLayout()}
-            <Footer />
-        </AppContainer>
-    </ThemeProvider>
+                <Footer />
+            </AppContainer>
+        </ThemeProvider>
     )
 }
 const AppContainer = styled.div`

@@ -3,16 +3,19 @@ import { HttpMethod, OnError, OnSuccess } from 'lib/types'
 import { APP_CONFIG } from '../config'
 
 type FetchProps = {
-    url: string,
+    url: string
     method: HttpMethod
 }
 
 type FetchActions<Response> = {
-    onSuccess: OnSuccess<Response>,
+    onSuccess: OnSuccess<Response>
     onError?: OnError
 }
 
-export const useFetch = <Response, Request = {}>(config: FetchProps, actions: FetchActions<Response>) => {
+export const useFetch = <Response, Request = {}>(
+    config: FetchProps,
+    actions: FetchActions<Response>
+) => {
     const [isLoading, setLoading] = useState<boolean>(false)
     const [hasError, setHasError] = useState<boolean>(false)
 
@@ -24,15 +27,15 @@ export const useFetch = <Response, Request = {}>(config: FetchProps, actions: Fe
             setHasError(false)
 
             const fetchConfig = {
-                ...config.method === HttpMethod.POST && {
+                ...(config.method === HttpMethod.POST && {
                     method: config.method,
                     body: JSON.stringify({
-                        ...params
+                        ...params,
                     }),
                     headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }
+                        'Content-Type': 'application/json',
+                    },
+                }),
             }
 
             fetch(`${APP_CONFIG.API_URL}/${config.url}`, fetchConfig)
@@ -55,6 +58,6 @@ export const useFetch = <Response, Request = {}>(config: FetchProps, actions: Fe
                 .finally(() => {
                     setLoading(false)
                 })
-        }
+        },
     }
 }

@@ -1,7 +1,7 @@
 import { LanguageCode } from 'lib/models'
 
 export type SelectedLanguages = {
-    source: LanguageCode,
+    source: LanguageCode
     target: LanguageCode
 }
 
@@ -10,9 +10,9 @@ export type AutoDetectedLanguageRequest = {
 }
 
 export type TranslateTextRequest = {
-    q: string,
-    source: LanguageCode,
-    target: LanguageCode,
+    q: string
+    source: LanguageCode
+    target: LanguageCode
     format: string
 }
 
